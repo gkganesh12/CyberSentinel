@@ -2,6 +2,9 @@ import React, { useState } from 'react';
 import Navbar from '../components/Navbar';
 import Sidebar from '../components/Sidebar';
 import { Search, Filter, ChevronDown, AlertCircle, Shield, Zap } from 'lucide-react';
+import { motion } from 'framer-motion';
+import PageTransition from '../components/PageTransition';
+import { fadeIn, slideInFromBottom, staggerChildren } from '../utils/animations';
 import { mockAlerts } from '../utils/mockData';
 
 interface AlertsPageProps {
@@ -39,22 +42,63 @@ const AlertsPage: React.FC<AlertsPageProps> = ({ onNavigate }) => {
   };
 
   return (
-    <div className="min-h-screen bg-slate-900">
+    <PageTransition className="min-h-screen bg-slate-900">
       <Navbar onNavigate={onNavigate} />
       <div className="flex">
         <Sidebar currentPage="alerts" onNavigate={onNavigate} />
         
-        <main className="flex-1 p-6 ml-64">
-          <div className="mb-8">
-            <h1 className="text-3xl font-bold text-white mb-2">Security Alerts</h1>
-            <p className="text-slate-400">Monitor and manage security incidents in real-time</p>
-          </div>
+        <motion.main 
+          className="flex-1 p-6 ml-64"
+          variants={fadeIn}
+          initial="hidden"
+          animate="show"
+          transition={{ duration: 0.5 }}
+        >
+          <motion.div 
+            className="mb-8"
+            variants={slideInFromBottom}
+            initial="hidden"
+            animate="show"
+            transition={{ delay: 0.2 }}
+          >
+            <motion.h1 
+              className="text-3xl font-bold text-white mb-2"
+              initial={{ opacity: 0, y: -10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3 }}
+            >
+              Security Alerts
+            </motion.h1>
+            <motion.p 
+              className="text-slate-400"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.4 }}
+             >
+               Monitor and manage security incidents in real-time
+             </motion.p>
+          </motion.div>
 
           {/* Filters */}
-          <div className="bg-slate-800 border border-slate-700 rounded-lg p-6 mb-6">
-            <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
+          <motion.div 
+            className="bg-slate-800 border border-slate-700 rounded-lg p-6 mb-6"
+            variants={fadeIn}
+            initial="hidden"
+            animate="show"
+            transition={{ delay: 0.5 }}
+          >
+            <motion.div 
+              className="grid grid-cols-1 md:grid-cols-4 gap-4"
+              variants={staggerChildren}
+              initial="hidden"
+              animate="show"
+            >
               {/* Search */}
-              <div className="relative">
+              <motion.div 
+                className="relative"
+                variants={fadeIn}
+                whileHover={{ scale: 1.02 }}
+              >
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400" />
                 <input
                   type="text"
@@ -63,10 +107,14 @@ const AlertsPage: React.FC<AlertsPageProps> = ({ onNavigate }) => {
                   onChange={(e) => setSearchTerm(e.target.value)}
                   className="w-full pl-10 pr-4 py-2 bg-slate-700 border border-slate-600 rounded-lg text-white placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-cyan-400"
                 />
-              </div>
+              </motion.div>
 
               {/* Severity Filter */}
-              <div className="relative">
+              <motion.div 
+                className="relative"
+                variants={fadeIn}
+                whileHover={{ scale: 1.02 }}
+              >
                 <select
                   value={severityFilter}
                   onChange={(e) => setSeverityFilter(e.target.value)}
@@ -78,10 +126,14 @@ const AlertsPage: React.FC<AlertsPageProps> = ({ onNavigate }) => {
                   <option value="low">Low</option>
                 </select>
                 <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
-              </div>
+              </motion.div>
 
               {/* Status Filter */}
-              <div className="relative">
+              <motion.div 
+                className="relative"
+                variants={fadeIn}
+                whileHover={{ scale: 1.02 }}
+              >
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
@@ -93,18 +145,29 @@ const AlertsPage: React.FC<AlertsPageProps> = ({ onNavigate }) => {
                   <option value="resolved">Resolved</option>
                 </select>
                 <ChevronDown className="absolute right-3 top-1/2 transform -translate-y-1/2 h-4 w-4 text-slate-400 pointer-events-none" />
-              </div>
+              </motion.div>
 
               {/* Advanced Filters */}
-              <button className="flex items-center justify-center px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors">
+              <motion.button 
+                className="flex items-center justify-center px-4 py-2 bg-cyan-600 text-white rounded-lg hover:bg-cyan-700 transition-colors"
+                variants={fadeIn}
+                whileHover={{ scale: 1.05, backgroundColor: '#0891b2' }}
+                whileTap={{ scale: 0.98 }}
+              >
                 <Filter className="h-4 w-4 mr-2" />
                 Advanced
-              </button>
-            </div>
-          </div>
+              </motion.button>
+            </motion.div>
+          </motion.div>
 
           {/* Alerts Table */}
-          <div className="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden">
+          <motion.div 
+            className="bg-slate-800 border border-slate-700 rounded-lg overflow-hidden"
+            variants={fadeIn}
+            initial="hidden"
+            animate="show"
+            transition={{ delay: 0.6 }}
+          >
             <div className="overflow-x-auto">
               <table className="w-full">
                 <thead className="bg-slate-700 border-b border-slate-600">
@@ -117,9 +180,20 @@ const AlertsPage: React.FC<AlertsPageProps> = ({ onNavigate }) => {
                     <th className="px-6 py-4 text-left text-xs font-medium text-slate-300 uppercase tracking-wider">Actions</th>
                   </tr>
                 </thead>
-                <tbody className="divide-y divide-slate-700">
-                  {filteredAlerts.map((alert) => (
-                    <tr key={alert.id} className="hover:bg-slate-700/50 transition-colors">
+                <motion.tbody 
+                  className="divide-y divide-slate-700"
+                  variants={staggerChildren}
+                  initial="hidden"
+                  animate="show"
+                >
+                  {filteredAlerts.map((alert, index) => (
+                    <motion.tr 
+                      key={alert.id} 
+                      className="hover:bg-slate-700/50 transition-colors"
+                      variants={fadeIn}
+                      custom={index * 0.1}
+                      whileHover={{ backgroundColor: 'rgba(51, 65, 85, 0.5)' }}
+                    >
                       <td className="px-6 py-4 whitespace-nowrap text-sm text-slate-300">
                         {alert.timestamp}
                       </td>
@@ -152,12 +226,12 @@ const AlertsPage: React.FC<AlertsPageProps> = ({ onNavigate }) => {
                           Investigate
                         </button>
                       </td>
-                    </tr>
+                    </motion.tr>
                   ))}
-                </tbody>
+                </motion.tbody>
               </table>
             </div>
-          </div>
+          </motion.div>
 
           {/* Results Summary */}
           <div className="mt-4 flex justify-between items-center text-sm text-slate-400">
@@ -167,9 +241,9 @@ const AlertsPage: React.FC<AlertsPageProps> = ({ onNavigate }) => {
               <button className="px-3 py-1 bg-slate-700 rounded hover:bg-slate-600 transition-colors">Next</button>
             </div>
           </div>
-        </main>
+        </motion.main>
       </div>
-    </div>
+    </PageTransition>
   );
 };
 

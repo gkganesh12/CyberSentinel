@@ -1,6 +1,6 @@
-# CyberSentinel - AI-Powered Cyber Defense Platform
+# CyberSentinel - AI-Powered Cyber Defense Platform (v2.0.0)
 
-A modern, enterprise-grade cybersecurity platform designed for SMBs with AI-powered threat detection and automated response capabilities.
+A modern, enterprise-grade cybersecurity platform designed for SMBs with AI-powered threat detection and automated response capabilities. Version 2.0.0 includes enhanced UI components, improved animations, and bug fixes.
 
 ## 🛡️ Features
 
@@ -10,6 +10,14 @@ A modern, enterprise-grade cybersecurity platform designed for SMBs with AI-powe
 - **Incident Management** - Comprehensive incident tracking and investigation
 - **MITRE ATT&CK Mapping** - Industry-standard threat classification
 - **Professional UI** - Dark theme with cyber-security aesthetics
+
+## 🆕 What's New in v2.0.0
+
+- **Enhanced Animation System** - Smooth page transitions and interactive UI elements
+- **New Pages** - Added Reports, Settings, and Threat Intelligence pages
+- **Improved Navigation** - Redesigned sidebar with better accessibility
+- **Bug Fixes** - Fixed JSX closing tag issues and import path errors
+- **Performance Improvements** - Optimized rendering and state management
 
 ## 🚀 Live Demo
 
